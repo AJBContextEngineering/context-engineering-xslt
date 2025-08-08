@@ -73,13 +73,13 @@ context-engineering-intro/
 │   └── settings.local.json    # Claude Code permissions
 ├── PRPs/
 │   ├── templates/
-│   │   └── prp_base.md       # Base template for PRPs
+│   │   └── prp_base.md        # Base template for PRPs
 │   └── EXAMPLE_multi_agent_prp.md  # Example of a complete PRP
 ├── examples/                  # Your code examples (critical!)
-├── CLAUDE.md                 # Global rules for AI assistant
-├── INITIAL.md               # Template for feature requests
-├── INITIAL_EXAMPLE.md       # Example feature request
-└── README.md                # This file
+├── CLAUDE.md                  # Global rules for AI assistant
+├── INITIAL.md                 # Template for feature requests
+├── INITIAL_EXAMPLE.md         # Example feature request
+└── README.md                  # This file
 ```
 
 This template doesn't focus on RAG and tools with context engineering because I have a LOT more in store for that soon. ;)

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DELVRY07>
+  <ZASTRO_DELVRY07>
+    <IDOC>
+      <E1EDL20>
+        <!-- VBELN field for Feature #2 mapping -->
+        <VBELN>12345678</VBELN>
+        
+        <!-- E1EDL24 element containing WERKS for Feature #3 mapping -->
+        <E1EDL24>
+          <WERKS>PLANT01</WERKS>
+        </E1EDL24>
+        
+        <!-- E1ADRM1 element with PARTNER_Q='Y1' for Feature #4 mapping -->
+        <E1ADRM1 PARTNER_Q="Y1">
+          <NAME1>TestPartner</NAME1>
+        </E1ADRM1>
+        
+        <!-- Additional E1ADRM1 with different partner code to test filtering -->
+        <E1ADRM1 PARTNER_Q="WE">
+          <NAME1>WrongPartner</NAME1>
+        </E1ADRM1>
+      </E1EDL20>
+    </IDOC>
+  </ZASTRO_DELVRY07>
+</DELVRY07>

@@ -1,10 +1,48 @@
 ## FEATURE:
 
-[Insert your feature here]
+### Feature #1
+
+Map the following fields in the XSLT Mapping:
+
+Source Field: Fixed value '2'
+
+Target Field: /PartSync/ControlArea/Sender/Confirmation
+
+Additional requirements: None
+
+### Feature #2
+
+Map the following fields in the XSLT Mapping:
+
+Source Field: /DELVRY07/ZASTRO_DELVRY07/IDOC/E1EDL20/VBELN
+
+Target Field: /OrderSync/DataArea/Order/OrderHead/OrderHeadId/Id
+
+### Feature #3
+
+Map the following fields in the XSLT Mapping:
+
+Source Field: /DELVRY07/ZASTRO_DELVRY07/IDOC/E1EDL20/E1EDL24/WERKS
+
+Target Field: /OrderSync/DataArea/Order/OrderHead/OrderHeadId/Division
+
+### Feature #4
+
+Map the following fields in the XSLT Mapping:
+
+Source Field: /DELVRY07/ZASTRO_DELVRY07/IDOC/E1EDL20/E1ADRM1[PARTNER_Q='Y1']/NAME1
+
+Target Field: /OrderSync/DataArea/Order/OrderHead/OurReference
 
 ## EXAMPLES:
 
-[Provide and explain examples that you have in the `examples/` folder]
+In examples/ are the following example XSLT files:
+
+- I403_Mapping.xsl - a very simple XSL mapping file
+- I405_ZRDA_V2.xsl - a very simple XSL mapping file
+- I407_GoodsReceipt_AstroFI_ECC.xsl - a very simple XSL mapping file
+- Z_I149_TELEMA_INVOIC.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
+- Z_I152_TELEMA_ORDER.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
 
 ## DOCUMENTATION:
 
