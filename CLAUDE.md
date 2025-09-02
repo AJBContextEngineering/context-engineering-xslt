@@ -67,14 +67,16 @@ The goals of this project are:
 - Each source element type gets its own xsl:template with appropriate match pattern
 - Only use xsl:call-template when it is clear that you don't need pattern matching behavior but need a reusable function
 
-### SOURCE XPATH -> TARGET XPATH CARDINALITY RULES
+### SOURCE XPATH -> TARGET XPATH MAPPING RULES
 The Features for field mapping will be specified as such:
 SOURCE XPATH: 
 TARGET XPATH: 
 CARDINALITY: 
+SPECIAL INSTRUCTIONS:
 
-- If CARDINALITY indicates multiple (0..n, 1..n): Generate apply-templates structure
-- If CARDINALITY indicates single/leaf (0..1, 1..1): Generate value-of template
+- If SOURCE XPATH is empty, generate the element mapping with <xsl:call-template>
+- If CARDINALITY indicates multiple (0..n, 1..n): generate <xsl:apply-templates> structure
+- If CARDINALITY indicates single/leaf (0..1, 1..1): Generate <xsl:value-of> template
 - XSLT processor handles actual cardinality automatically through template matching
 
 ### SOURCE XPATH -> TARGET XPATH SPECIAL INSTRUCTION RULES
@@ -82,7 +84,7 @@ The Features for field mapping may include a SPECIAL INSTRUCTIONS field, for exa
 SOURCE XPATH: 
 TARGET XPATH: 
 CARDINALITY: 
-SPECIAL INSTRUCTIONS: 
+SPECIAL INSTRUCTIONS:
 
 In that case, ensure that the SPECIAL INSTRUCTIONS are implemented in the xslt mapping implementation.
 
