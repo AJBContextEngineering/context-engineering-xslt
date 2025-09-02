@@ -75,9 +75,10 @@ CARDINALITY:
 SPECIAL INSTRUCTIONS:
 
 - If SOURCE XPATH is empty, generate the element mapping with <xsl:call-template>
-- If CARDINALITY indicates multiple (0..n, 1..n): generate <xsl:apply-templates> structure
-- If CARDINALITY indicates single/leaf (0..1, 1..1): Generate <xsl:value-of> template
-- XSLT processor handles actual cardinality automatically through template matching
+- If SOURCE XPATH is NOT empty:
+  - If CARDINALITY indicates multiple (0..n, 1..n): generate <xsl:apply-templates> structure
+  - If CARDINALITY indicates single/leaf (0..1, 1..1): Generate <xsl:value-of> template
+  - XSLT processor handles actual cardinality automatically through template matching
 
 ### SOURCE XPATH -> TARGET XPATH SPECIAL INSTRUCTION RULES
 The Features for field mapping may include a SPECIAL INSTRUCTIONS field, for example:
