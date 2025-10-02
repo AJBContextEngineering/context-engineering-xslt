@@ -1,48 +1,39 @@
 ## FEATURE:
 
+We want to create an MCP server using this repos template.
+
+The goal of the MCP server is to be passed in an XPath element and the XSD schema file, and to return only the subset of the XSD that's relevant to validating the elements/attributes selected by that XPath.
+
 ### Feature #1
 
-Map the following fields in the XSLT Mapping:
+The XSD Schema file is located in the projects repository under the /xsd folder and is read by the MCP server and stored as a variable.
 
-Source Field: Fixed value '2'
-
-Target Field: /PartSync/ControlArea/Sender/Confirmation
-
-Additional requirements: None
+Reason: we only want to load the XSD schema once into the MCP server when the MCP server is instantiated, not every time it is accessed.
 
 ### Feature #2
 
-Map the following fields in the XSLT Mapping:
+When the relevant XSD fragment for the XPath element is returned, so are all of the dependent XSD parts.
 
-Source Field: /DELVRY07/ZASTRO_DELVRY07/IDOC/E1EDL20/VBELN
-
-Target Field: /OrderSync/DataArea/Order/OrderHead/OrderHeadId/Id
+Reason: we want to pass back a complete description of the XSD schema to allow the recipient LLM to have all of the relevant XSD schema parts in its context.
 
 ### Feature #3
 
-Map the following fields in the XSLT Mapping:
+The function that will return the XSD parts will be called retrieve_xsd_fragments and it should be decorated with an annotation that names the MCP Tool 'retrieve-xsd-fragments'.
 
-Source Field: /DELVRY07/ZASTRO_DELVRY07/IDOC/E1EDL20/E1EDL24/WERKS
-
-Target Field: /OrderSync/DataArea/Order/OrderHead/OrderHeadId/Division
+Reason: we want to name the MCP Tool ourselves.
 
 ### Feature #4
 
-Map the following fields in the XSLT Mapping:
+The function contains a Python docstring that helps the LLM identify the correct usage of the tool, and it is to describe that it is passed in an XPath element and the XSD schema file name, and it returns only the subset of the XSD that's relevant to validating the elements/attributes selected by that XPath.
 
-Source Field: /DELVRY07/ZASTRO_DELVRY07/IDOC/E1EDL20/E1ADRM1[PARTNER_Q='Y1']/NAME1
-
-Target Field: /OrderSync/DataArea/Order/OrderHead/OurReference
+Reason: we want the LLM to know what this tool is for and when it should use it. Also what arguments are passed in and what is returned.
 
 ## EXAMPLES:
 
-In examples/ are the following example XSLT files:
+In examples/ are the following example files:
 
-- I403_Mapping.xsl - a very simple XSL mapping file
-- I405_ZRDA_V2.xsl - a very simple XSL mapping file
-- I407_GoodsReceipt_AstroFI_ECC.xsl - a very simple XSL mapping file
-- Z_I149_TELEMA_INVOIC.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
-- Z_I152_TELEMA_ORDER.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
+- example_schema.xsd - a sample xsd schema file that the examples in file example_input_output.md are based upon.
+- Example_input_output.md - shows the input XPath that would be passed in, and the returned XSD fragments.
 
 ## DOCUMENTATION:
 

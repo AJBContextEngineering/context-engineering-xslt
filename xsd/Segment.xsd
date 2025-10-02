@@ -1,0 +1,3047 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Name: Element/Segment.xsd
+
+  Revision:
+
+
+-->
+<xs:schema 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://www.consafelogistics.com/astro/project" 
+  xmlns:appdoc="appdoc" 
+  xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+  targetNamespace="http://www.consafelogistics.com/astro/project" 
+  elementFormDefault="qualified" 
+  attributeFormDefault="unqualified" version="0140">
+  <xs:include schemaLocation="../Element/Element.xsd"/>
+  <!--
+
+  Meta data.
+
+  -->
+  <xs:complexType name="Envelope_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The documents root element.
+        For more info on the structure of the documents, see document called structure.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="version" type="Version_0100" use="required" fixed="0100"/>
+  </xs:complexType>
+  <xs:complexType name="Service_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Defines the name and version of the service.
+      For more info on the structure of the documents, see documentation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="version" type="Version_0100" use="required" fixed="0100"/>
+  </xs:complexType>
+  <xs:complexType name="DataArea_Segment">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Is where the information that the message carries is provided.</xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+  <xs:complexType name="AddressU_Segment_0110">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Address unicode segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AddressLine1" type="AddressLineU1_0100" minOccurs="0"/>
+      <xs:element name="AddressLine2" type="AddressLineU2_0100" minOccurs="0"/>
+      <xs:element name="AddressLine3" type="AddressLineU3_0100" minOccurs="0"/>
+      <xs:element name="AddressLine4" type="AddressLineU4_0100" minOccurs="0"/>
+      <xs:element name="PostalCode" type="AddressPostalCodeU_0100" minOccurs="0"/>
+      <xs:element name="BoxNumber" type="AddressBoxNumberU_0100" minOccurs="0"/>
+      <xs:element name="City" type="AddressCityU_0100" minOccurs="0"/>
+      <xs:element name="State" type="AddressStateU_0100" minOccurs="0"/>
+      <xs:element name="Country" type="AddressCountryU_0100" minOccurs="0"/>
+      <xs:element name="CountryCode" type="AddressCountryCode_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  ControlArea segments
+
+  -->
+  <xs:complexType name="ControlArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Control Area.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Sender" type="Sender_Segment_0100"/>
+      <xs:element name="CreationDateTime" type="dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            DateTime when document was created.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReferenceId" type="ReferenceId_Segment_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReferenceId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Document Reference.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="TransactionId_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Reference id is a unique number that is added with 1 for each new document (including
+            acknowledgements) from the sending application.
+
+            The number should be in the range between 000 000 000 - 999 999 999 and start on 000 000 000.
+            When 999 999 999 transactions has been sent then the reference id starts from 000 000 000 again.
+
+            The number series for sending and receiving are independent from each other.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Sender_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Sender information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LogicalId" type="SenderLogicalId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Logical Identifier element is the identification of the sending application from which the document originated.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ComponentId" type="SenderComponentId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Component ID provides a finer level of control than Logical Identifier and represents the business component that issued the Business object document.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TaskId" type="SenderTaskId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Task describes the business event that initiated the need for the Business Object Document to be created.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Confirmation" type="Confirmation_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            States if a Confirmation/Acknowledge is requested.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  CancelExpression segments
+
+  -->
+  <xs:complexType name="CancelExpression_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Cancel Expression. Decides how the Cancel should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="CancelExpression_0100" use="required"/>
+  </xs:complexType>
+  <!--
+
+  ChangeExpression segments
+
+  -->
+  <xs:complexType name="ChangeExpression_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Change Expression. Decides how the Change should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="CancelExpression_0100" use="required"/>
+  </xs:complexType>
+  <!--
+
+  CreateExpression segments
+
+  -->
+  <xs:complexType name="CreateExpression_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Create Expression. Decides how the Create should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="CreateExpression_0100" use="required"/>
+  </xs:complexType>
+  <!--
+
+  SyncExpression segments
+
+  -->
+  <xs:complexType name="SyncExpression_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Sync Expression. Decides what should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="SyncExpression_0100" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="SyncExpression_Segment_0120">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Sync Expression. Decides what should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="SyncExpression_0120" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="SyncExpression_Segment_0130">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Sync Expression. Decides what should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="SyncExpression_0130" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="SyncExpression_Segment_0140">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Sync Expression. Decides what should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="SyncExpression_0140" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="SyncExpression_Segment_0200">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Sync Expression. Decides what should be performed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="action" type="SyncExpression_0200" use="required"/>
+  </xs:complexType>
+  <!--
+
+  Verb segments
+
+  -->
+  <xs:complexType name="VerbCancel_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb cancel.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionCriteria" type="CancelExpression_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerbChange_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb change.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionCriteria" type="ChangeExpression_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerbSync_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb sync.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionCriteria" type="SyncExpression_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerbSync_Segment_0120">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb sync.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionCriteria" type="SyncExpression_Segment_0120" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerbSync_Segment_0130">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb sync.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionCriteria" type="SyncExpression_Segment_0130" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerbSync_Segment_0140">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb sync.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionCriteria" type="SyncExpression_Segment_0140" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerbSync_Segment_0200">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb sync.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionCriteria" type="SyncExpression_Segment_0200" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerbConfirm_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Verb confirm.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OrginalControlArea" type="ControlArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">A copy of the ControlArea for the original BOD that was processed. Present as additional reference information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Account segments
+
+  -->
+  <xs:complexType name="AccountSource_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The account source. I.e. from account.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccountId" type="AccountId_Segment_0100"/>
+      <xs:element name="AccountZone" type="AccountZone_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AccountDestination_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The account destination. I.e. to account.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccountId" type="AccountId_Segment_0100"/>
+      <xs:element name="AccountZone" type="AccountZone_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AccountId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The account identifier.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="AccountId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+  CrossDocking
+  -->
+  <xs:complexType name="CrossDockingInfo_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">CrossDocking information for the receiving instance. This segment should only be included if Crossdocking is requested.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RouteAssignmentKey" type="PalletRouteAssignmentKey_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Route information for the receiving instance.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StopLocationAddress" type="PalletStopLocationAddress_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">If known, the next ship to instance.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomerNumber" type="PalletCustomerNumber_0100" minOccurs="0"/>
+      <xs:element name="PalletEndDestination" type="PalletEndDestination_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The final end destination.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubRoute" type="OrderSubRoute_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Route information for the receiving instance.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PromisedShipDate" type="OrderPromisedShipDate_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Shipping information for the receiving instance.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeliveryInformationArea" type="DeliveryInfo_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  DeliveryInformation segments version 0100
+
+  -->
+  <xs:complexType name="DeliveryInfo_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that holds delivery information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Line" type="FreetextLine_0100" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  DeliveryReceiptHead segments version 0100
+
+  -->
+  <xs:complexType name="DeliveryReceiptHeadId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the DeliveryReceipt head.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="DeliveryReceiptHeadId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeliveryReceiptHeadDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for the DeliveryReceipt head.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Weight" type="DeliveryReceiptHeadWeight_0100"/>
+      <xs:element name="Volume" type="DeliveryReceiptHeadVolume_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  DeliveryReceiptLine segments version 0100
+
+  -->
+  <xs:complexType name="DeliveryReceiptReceivedReport_Line_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Delivery Receipt Received Line segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DeliveryReceiptHeadId" type="DeliveryReceiptHeadId_Segment_0100"/>
+      <xs:element name="TransportId" type="TransportId_Segment_0100" minOccurs="0"/>
+      <xs:element name="ReceiptReference" type="DeliveryReceiptHeadReference_0100" minOccurs="0"/>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100"/>
+      <xs:element name="ReceiptQuantity" type="DeliveryReceiptLineReceiptQty_0100"/>
+      <xs:element name="ReceivedQuantity" type="DeliveryReceiptLineReceivedQty_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Discrepancy segments version 0100
+
+  -->
+  <xs:complexType name="Discrepancy_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Provides receiving discrepancy information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccountDestination" type="AccountDestination_Segment_0100"/>
+      <xs:element name="Quantity" type="DiscrepancyQty_0100"/>
+      <!-- 090319 / Verza / CHG000000016140 - Added TradeQty and TradeUnit -->
+      <xs:element name="TradeQuantity" type="TradeQty_0100" minOccurs="0"/>
+      <xs:element name="TradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="Note" type="DiscrepancyNote_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DiscrepancyLot_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Provides receiving discrepancy information on lot level.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LotId" type="LotId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccountDestination" type="AccountDestination_Segment_0100"/>
+      <xs:element name="Quantity" type="DiscrepancyQty_0100"/>
+      <xs:element name="Note" type="DiscrepancyNote_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Dispatch segments version 0100
+
+  -->
+  <xs:complexType name="DispatchId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for dispatch Id.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="DispatchId_0100"/>
+    </xs:sequence>
+    <!-- 080922/sechrwi - CHG00000014829. Created. -->
+  </xs:complexType>
+  <xs:complexType name="DispatchDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for the dispatch.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Weight" type="Weight_0100"/>
+      <xs:element name="Volume" type="Volume_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DispatchReceiveReport_Line_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dispatch receive segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DispatchId" type="DispatchId_Segment_0100"/>
+      <xs:element name="PalletId" type="PalletId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Inbound pallet reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OriginalPalletId" type="PalletId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Inbound orginal pallet reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StorageLocation" type="StorageLocation_0100" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DispatchHead_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dispatch head information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DispatchId" type="DispatchId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Dispatch identification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShipFrom" type="DispatchShipFrom_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The shipping instance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShipTo" type="DispatchShipTo_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The receiving instance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DivisionGroup" type="DivisionGroup_0100"/>
+      <xs:element name="DispatchStatus" type="DispatchStatus_0100" minOccurs="0"/>
+      <xs:element name="DispatchDimensionArea" type="DispatchDimInstance_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Dimensions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShipUnitQuantity" type="ShipmentShipUnitQty_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Number of shipped units.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportArea" type="TransportInfo_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Transport information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FreeText" type="FreeTextArea_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">General freetext information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ShipmentLine_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Shipment line information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdvisedQuantity" type="Qty_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part quantity on the shipment.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdvisedUnit" type="DeliveryReceiptLineReceiptUnit_0100"/>
+      <xs:element name="PurchaseOrderHeadId" type="PurchaseOrderHeadId_Segment_0100"/>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100"/>
+      <xs:element name="PurchaseOrderType" type="PurchaseOrderType_0100"/>
+      <xs:element name="SupplierNumber" type="SupplierId_0100"/>
+      <xs:element name="OrderLinkKey" type="PurchaseOrderLineLinkKey_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+    DocumentRequest segments version 0100
+
+  -->
+  <xs:complexType name="DocumentRequestReply_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A document request reply.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DocumentRequestId" type="DocumentRequestId_Segment_0100"/>
+      <xs:element name="DocumentResponse" type="DocumentResponse_Segment_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentRequestId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the DocumentRequest.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="DocumentRequestId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentResponse_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for the Document Response.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DocumentResponseStatus" type="DocumentResponseStatus_0100"/>
+      <xs:element name="DocumentImage" type="DocumentImage_0100" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  DropPoint segments version 0100
+
+  -->
+  <xs:complexType name="DropPointId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the droppoint.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="DropPointId_0100"/>
+      <xs:element name="CustomerNumber" type="DropPointCustomerNumber_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DropPointDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for  the droppoint.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Weight" type="DropPointPickedWeight_0100"/>
+      <xs:element name="Volume" type="DropPointPickedVolume_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+        Employee segments version 0100
+
+    -->
+  <xs:complexType name="Employee_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Employee information.</xs:documentation>
+      <xs:appinfo source="Astro">
+        <appdoc:SrvsDesc>
+          <appdoc:info xml:lang="en">An employee will be saved in the party structure.</appdoc:info>
+        </appdoc:SrvsDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EmployeeId" type="EmployeeId_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Identifies an employee.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name1" type="PartyNameU1_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Forename.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name2" type="PartyNameU2_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Surename.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Language" type="PartyLanguageCode_0100" minOccurs="0"/>
+      <xs:element name="Address" type="AddressU_Segment_0110" minOccurs="0"/>
+      <xs:element name="PartyContact" type="PartyContactU_Segment_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Identification of a person name or department name and their communication channels.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Category" type="EmployeeCategory_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Category of employee.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DepartmentId" type="EmployeeDepartmentId_0100" minOccurs="0"/>
+      <xs:element name="EmployeeCompetenceArea" type="EmployeeCompetenceArea_Segment_0100" minOccurs="0"/>
+      <xs:element name="EmploymentArea" type="EmployeeEmployment_Segment_0100" minOccurs="0"/>
+      <xs:element name="ExternalReference" type="EmployeeExternalReference_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EmployeeCompetenceArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Employee competence segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="WorkTask" type="EmployeeWorkTask_Segment_0100" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EmployeeWorkTask_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The work tasks that an employee has competence for.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="WorkTaskId" type="EmployeeWorkTaskId_0100"/>
+      <xs:element name="WorkTaskFactor" type="EmployeeWorkTaskFactor_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EmployeeEmployment_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Employee employment information segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EmployedFromDate" type="EmploymentDate_0100" minOccurs="0"/>
+      <xs:element name="EmployedToDate" type="EmploymentDate_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EmployeeWorkScheduleArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Employee Work Schedule segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Date" type="EmployeeWorkScheduleDate_0100"/>
+      <xs:element name="StartTime" type="EmployeeWorkScheduleTime_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">When the work starts.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EndTime" type="EmployeeWorkScheduleTime_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">When the work ends.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Kit
+
+  -->
+  <xs:complexType name="KitComponent_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies a component in a kit.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedQuantity" type="OrderLineOrderQuantity_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Ordered quantity for the component in one kit. This quantity will be multiplied with the orderlines quantity to get the total ordered quantity.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedUnit" type="OrderLineOrderedUnit_0100" minOccurs="0"/>
+      <xs:element name="Instruction" type="OrderLine_KitInstruction_0100" minOccurs="0"/>
+      <xs:element name="Mandatory" type="OrderLine_Mandatory_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KitOperation_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that defines a operation made for a kit.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="KitOperationId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Operation reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedQuantity" type="OrderLineOrderQuantity_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Number of requested operations. This quantity will be multiplied with the orderlines quantity to get the total requested operations.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedUnit" type="OrderLineOrderedUnit_0100" minOccurs="0"/>
+      <xs:element name="Instruction" type="OrderLine_KitInstruction_0100" minOccurs="0"/>
+      <xs:element name="OperationSetupTime" type="OrderLine_OperationSetupTime_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Time to setup operation. Used for calculate total operation time.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OperationTime" type="OrderLine_OperationTime_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Time to execute operation.Used for calculate total operation time.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KitAreaDelivered_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Delivery information for kit components.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="KitComponent" type="KitComponentDelivered_Segment_0100" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">References for each kit component.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="KitOperation" type="KitOperationDelivered_Segment_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">References for each kit operation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KitComponentDelivered_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Delivery information for a component in a kit.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedQuantity" type="OrderLineOrderQuantity_0100"/>
+      <xs:element name="OrderedUnit" type="OrderLineOrderedUnit_0100" minOccurs="0"/>
+      <xs:element name="PickedQuantity" type="OrderLineOrderQuantity_0100"/>
+      <xs:element name="PickedUnit" type="OrderLineOrderedUnit_0100" minOccurs="0"/>
+      <xs:element name="OrderLinePickReference" type="OutboundPalletContentOrderLine_Segment_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">References for each pick made for the component.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KitOperationDelivered_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Delivery information for a operation made for a kit.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="KitOperationId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Kit operation reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedQuantity" type="OrderLineOrderQuantity_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Requested number of operations.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedUnit" type="OrderLineOrderedUnit_0100" minOccurs="0"/>
+      <xs:element name="PickedQuantity" type="OrderLineOrderQuantity_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Number of operations performed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PickedUnit" type="OrderLineOrderedUnit_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Lot
+
+  -->
+  <xs:complexType name="LotId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the Lot.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="LotId_0100"/>
+      <xs:element name="SupplierId" type="SupplierId_0100"/>
+      <xs:element name="ScannedLotId" type="ScannedLotId_0100" minOccurs="0" maxOccurs="1"/> <!-- 230829/noerifl - CR9B -->
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LotToleranceArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Lot/Batch tolerance area.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BestBefore" type="LotBestBefore_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LotProductionArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Lot/Batch production area.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductionDate" type="LotProductionDate_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LotBalanceArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Lot/Batch balance area.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TotalQuantity" type="Qty_0100"/>
+      <xs:element name="AvailableQuantity" type="Qty_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Order segments
+
+  -->
+  <xs:complexType name="OrderHeadId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the order head.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="OrderHeadId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FreeTextArea_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">General freetext segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FreetextLine" type="FreetextLine_0100"/>
+      <xs:element name="FreetextCode" type="FreetextCode_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderSalesArea_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order sales information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SalesOrganization" type="OrderSalesOrganization_0100" minOccurs="0"/>
+      <xs:element name="SalesPerson" type="OrderSalesPerson_0100" minOccurs="0"/>
+      <xs:element name="PaymentTerms" type="OrderPaymentTerms_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderCustomerArea_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order customer information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="OrderCustomerNumber_0100" minOccurs="0"/>
+      <xs:element name="Name1" type="OrderCustomerName1_0100" minOccurs="0"/>
+      <xs:element name="Name2" type="OrderCustomerName2_0100" minOccurs="0"/>
+      <xs:element name="Address1" type="OrderCustomerAddress1_0100" minOccurs="0"/>
+      <xs:element name="Address2" type="OrderCustomerAddress2_0100" minOccurs="0"/>
+      <xs:element name="City" type="OrderCustomerCity_0100" minOccurs="0"/>
+      <xs:element name="PostalCode" type="OrderCustomerPostalCode_0100" minOccurs="0"/>
+      <xs:element name="Country" type="OrderCustomerCountry_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderDeliveryArea_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order delivery information. Used for order that should be planned.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StopLocationAddress" type="OrderStopLocationAddress_0100"/>
+      <xs:element name="RouteAssignmentKey" type="OrderRouteAssignmentKey_0100"/>
+      <xs:element name="DeliveryDate" type="OrderPromisedShipDate_0100" minOccurs="0"/>
+      <xs:element name="DeliveryTime" type="OrderPromisedShipTime_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Note, only valid if a DeliveryDate is defined.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EndLocationAddress" type="OrderEndLocationAddress_0100" minOccurs="0"/>
+      <xs:element name="SubRoute" type="OrderSubRoute_0100" minOccurs="0"/>
+      <xs:element name="Terms" type="OrderTerms_0100" minOccurs="0"/>
+      <xs:element name="TermsCode" type="OrderTermsCode_0100" minOccurs="0"/>
+      <xs:element name="Method" type="OrderMethod_0100" minOccurs="0"/>
+      <xs:element name="MethodCode" type="OrderMethodCode_0100" minOccurs="0"/>
+      <xs:element name="Address1" type="OrderDeliveryAddress1_0100"/>
+      <xs:element name="Address2" type="OrderDeliveryAddress2_0100" minOccurs="0"/>
+      <xs:element name="Address3" type="OrderDeliveryAddress3_0100" minOccurs="0"/>
+      <xs:element name="Address4" type="OrderDeliveryAddress4_0100" minOccurs="0"/>
+      <xs:element name="City" type="OrderDeliveryCity_0100"/>
+      <xs:element name="PostalCode" type="OrderDeliveryPostalCode_0100"/>
+      <xs:element name="Country" type="OrderDeliveryCountry_0100" minOccurs="0"/>
+      <xs:element name="GAN" type="OrderDeliveryGAN_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderPlannedDeliveryArea_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order delivery information. Used for order that already are planned.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StopLocationAddress" type="OrderStopLocationAddress_0100"/>
+      <xs:element name="EndLocationAddress" type="OrderEndLocationAddress_0100" minOccurs="0"/>
+      <xs:element name="SubRoute" type="OrderSubRoute_0100" minOccurs="0"/>
+      <xs:element name="Terms" type="OrderTerms_0100" minOccurs="0"/>
+      <xs:element name="TermsCode" type="OrderTermsCode_0100" minOccurs="0"/>
+      <xs:element name="Method" type="OrderMethod_0100" minOccurs="0"/>
+      <xs:element name="MethodCode" type="OrderMethodCode_0100" minOccurs="0"/>
+      <xs:element name="Address1" type="OrderDeliveryAddress1_0100"/>
+      <xs:element name="Address2" type="OrderDeliveryAddress2_0100" minOccurs="0"/>
+      <xs:element name="Address3" type="OrderDeliveryAddress3_0100" minOccurs="0"/>
+      <xs:element name="Address4" type="OrderDeliveryAddress4_0100" minOccurs="0"/>
+      <xs:element name="City" type="OrderDeliveryCity_0100"/>
+      <xs:element name="PostalCode" type="OrderDeliveryPostalCode_0100"/>
+      <xs:element name="Country" type="OrderDeliveryCountry_0100" minOccurs="0"/>
+      <xs:element name="GAN" type="OrderDeliveryGAN_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderRefInfo_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Outbound order reference information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OrderLineId" type="OrderLineId_Segment_0100" minOccurs="0"/>
+      <xs:element name="OtherOrderReference" type="OrderLineOtherExtOrderReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherOrderLineReference" type="OrderLineOtherExtOrderLineReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  OrderHeadExtraCost
+
+  -->
+  <xs:complexType name="OrderHeadExtraCosts_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Extra costs for a order head.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ExtraCost" type="OrderHeadExtraCost_Segment_0100" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderHeadExtraCost_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A extra cost item.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CostItem" type="OrderHeadCostItem_0100"/>
+      <xs:element name="Quantity" type="OrderHeadCostQuantity_0100"/>
+      <xs:element name="Amount" type="OrderHeadCostAmount_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  OrderLineExtraCost
+
+  -->
+  <xs:complexType name="OrderLineExtraCosts_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Extra costs for a order line.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ExtraCost" type="OrderLineExtraCost_Segment_0100" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderLineExtraCost_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A extra cost item.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CostItem" type="OrderLineCostItem_0100"/>
+      <xs:element name="Quantity" type="OrderLineCostQuantity_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  OrderLine
+
+  -->
+  <xs:complexType name="OrderLineId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the order line.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OrderHeadId" type="OrderHeadId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+      <xs:element name="Id" type="OrderLineId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderDeliveryReport_Line_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">OrderDeliveryReport Line segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OrderLineId" type="OrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:appinfo source="Astro">
+            <appdoc:ElementDesc>
+              <appdoc:table>o08t1</appdoc:table>
+            </appdoc:ElementDesc>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderLineStatus" type="OrderDeliveryReportLineStatus_0100"/>
+      <xs:element name="OtherOrderReference" type="OrderLineOtherExtOrderReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherOrderLineReference" type="OrderLineOtherExtOrderLineReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderedQuantity" type="OrderLineOrderQuantity_0100"/>
+      <xs:element name="OrderedUnit" type="OrderLineOrderedUnit_0100" minOccurs="0"/>
+      <xs:element name="OrderedUnitConversionFactor" type="OrderLineOrderedUnitConversionFactor_0100" minOccurs="0"/>
+      <xs:element name="PickedQuantity" type="OrderLineDeliveredQuantity_0100"/>
+      <xs:element name="PickedUnit" type="OrderLineDeliveredUnit_0100" minOccurs="0"/>
+      <xs:element name="PickedTradeQuantity" type="TradeQty_0100" minOccurs="0"/>
+      <xs:element name="PickedTradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="ExtraCosts" type="OrderLineExtraCosts_Segment_0100" minOccurs="0"/>
+      <xs:element name="DotPickFlag" type="OrderLineDotPickFlag_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderLineDangerousGoods_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+          The following “dangerous goods” information is only used for advicing transport information, for ex. to a FreightForwarder,Carrier or TMS.
+          Note, this information will not affect the handling of the order line in Astro.
+          Nor will other “dangerous goods" logic in Astro take the following values on the order line into account.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="UNNumber" type="OrderLineDangerousGoodsUNNumber_0100" minOccurs="0"/>
+      <xs:element name="ADRClass" type="OrderLineDangerousGoodsADRClass_0100" minOccurs="0"/>
+      <xs:element name="PackGroup" type="OrderLineDangerousGoodsPackGroup_0100" minOccurs="0"/>
+      <xs:element name="WeightExplSubs" type="OrderLineDangerousGoodsWeightExplSubs_0100" minOccurs="0"/>
+      <xs:element name="MP" type="OrderLineDangerousGoodsMP_0100" minOccurs="0"/>
+      <xs:element name="FlamePoint" type="OrderLineDangerousGoodsFlamePoint_0100" minOccurs="0"/>
+      <xs:element name="LQ" type="OrderLineDangerousGoodsLQ_0100" minOccurs="0"/>
+      <xs:element name="Category" type="OrderLineDangerousGoodsCategory_0100" minOccurs="0"/>
+      <xs:element name="EMS" type="OrderLineDangerousGoodsEMS_0100" minOccurs="0"/>
+      <xs:element name="SP" type="OrderLineDangerousGoodsSP_0100" minOccurs="0"/>
+      <xs:element name="Type" type="OrderLineDangerousGoodsType_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PickListDeliveryReport_Line_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">PickListDeliveryReport Line segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OrderLineId" type="OrderLineId_Segment_0100"/>
+      <xs:element name="OtherOrderReference" type="OrderLineOtherExtOrderReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherOrderLineReference" type="OrderLineOtherExtOrderLineReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PickedQuantity" type="OrderLineDeliveredQuantity_0100"/>
+      <xs:element name="PickedUnit" type="OrderLineDeliveredUnit_0100" minOccurs="0"/>
+      <xs:element name="DotPickFlag" type="OrderLineDotPickFlag_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderLineLotRArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies lot requests.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LotId" type="LotId_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RequestType" type="OrderLine_LotRequestType_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderLineSRArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies storing requests.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MinDays" type="OrderLine_StoreMinDays_0100"/>
+      <xs:element name="MaxDays" type="OrderLine_StoreMaxDays_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderLineKitArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for a kitting requests. A group of components(parts) are put together in a kit.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Instruction" type="OrderLine_KitInstruction_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">This instruction will be used for the components if not explicit stated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="KitComponent" type="KitComponent_Segment_0100" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The components(parts) that are put together in a kit.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="KitOperation" type="KitOperation_Segment_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Operations needed for putting the components(parts) together in a kit.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+        OutboundPallet  segments version 0100.
+
+    -->
+  <xs:complexType name="OutboundPallet_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Pallet information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PalletId" type="PalletId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Pallet identification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PalletTypeId" type="PalletTypeId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Pallet type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PalletDimensionArea" type="PalletDimInstance_Segment_0110" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Dimensions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DivisionGroup" type="DivisionGroup_0100"/>
+      <xs:element name="DeliveryArea" type="OutboundPalletDeliveryArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Delivery information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TrackingInformation" type="TrackingInfoArea_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tracking information for the pallet. The tracking infromation could orginate from for ex. a TMS. The text could for ex. be a URL.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OutboundPalletContent" type="OutboundPalletContent_Segment_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Content of the pallet.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OutboundPalletDeliveryArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Delivery information. This segment should only be included if delivery information is available.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TripId" type="TripId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Trip reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TripExternalId" type="TripId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">External trip reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportConsignmentInfoArea" type="OutboundPalletTransportConsignmentInfoArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Consignment information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OutboundPalletDispatchInfoArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dispatch information. This segment should only be included if dispatch information is available.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DispatchId" type="DispatchId_Segment_0100"/>
+      <xs:element name="ShipFrom" type="DispatchShipFrom_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The shipping instance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShipTo" type="DispatchShipTo_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The receiving instance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CrossDockArea" type="CrossDockingInfo_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Included if pallet should be cross docked at the receiving instance.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OutboundPalletTransportConsignmentInfoArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Consignment information. This segment should only be included if consignment information is available.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ExternalConsignmentId" type="TransportConsignmentExternalId_0100" minOccurs="0"/>
+      <xs:element name="TrackingInformation" type="TrackingInfoArea_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tracking information for the consignment. The tracking infromation could orginate from for ex. a TMS. The text could for ex. be a URL.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartyArea" type="PartyU_Segment_0100" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OutboundPalletDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dim instance for  the OutboundPallet.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100"/>
+      <xs:element name="Weight" type="Weight_0100"/>
+      <xs:element name="TareWeight" type="Weight_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tare Weight means empty or starting weight. The tare weight is subtracted from the gross or ending weight to determine the Net Weight of the load.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  OutboundPalletContent  segments version 0100
+
+  -->
+  <xs:complexType name="OutboundPalletContent_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A Pallet content, can either be a Item content or another pallet (the parent pallet is a dispatch pallet). </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:sequence>
+        <xs:element name="OutboundPalletContentItem" type="OutboundPalletContentItem_Segment_0100">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">An item.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="OutboundPallet" type="OutboundPallet_Segment_0100">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">A "child" pallet. </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="OutboundPalletContentDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for  the OutboundPallet Content.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100"/>
+      <xs:element name="Weight" type="Weight_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OutboundPalletContentOrderLine_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order line references.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PickedQuantity" type="OrderLineDeliveredQuantity_0100"/>
+      <xs:element name="PickedUnit" type="OrderLineDeliveredUnit_0100" minOccurs="0"/>
+      <xs:element name="PickedTradeQuantity" type="TradeQty_0100" minOccurs="0"/>
+      <xs:element name="PickedTradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="AccountSource" type="AccountSource_Segment_0100" minOccurs="0"/>
+      <xs:element name="LotId" type="LotId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PalletId" type="PalletId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Outbound pallet Id reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- 230830/noerifl - KES-38 - Add Package type -->
+      <xs:element name="PackageType" type="PartId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">SAP material number used as package type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TrackingInformation" type="TrackingInfoArea_0100" minOccurs="0" maxOccurs="unbounded" >
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tracking information regarding the outbound pallet.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SerialNumbers" type="SerialNumbers_0100" minOccurs="0"/>
+      <xs:element name="MeltNumbers" type="MeltNumbers_0100" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  SerialNumbers segment version 0100
+  SerialNumbers_0100
+
+  -->
+  <xs:complexType name="SerialNumberId_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Serial number according to GS1 - 20 character string.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="SerialNumberId_Id_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SerialNumber_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Serial number composed from id and additional serial number according to GS1.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SerialNumberId" type="SerialNumberId_0100"/>
+      <xs:element name="AdditionalSerialNumber" type="AdditionalSerialNumber_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SerialNumbers_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Structure for reporting more that one serial number e.g. when reporting deliveries to ERP.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SerialNumber" type="SerialNumber_0100" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  MeltNumbers segment version 0100
+  MeltNumbers_0100
+
+  -->
+  <xs:complexType name="MeltNumbers_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Structure for reporting more than one melt number e.g. when reporting deliveries to ERP.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MeltNumber" type="MeltNumber_0100" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Party segments version 0100
+
+  -->
+  <xs:complexType name="PartyU_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">General party information. Information for a business entity.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartyId" type="PartyIdU_Segment_0100" maxOccurs="unbounded"/>
+      <xs:element name="Division" type="Division_0100"/>
+      <xs:element name="Type" type="PartyType_0100"/>
+      <xs:element name="Name1" type="PartyNameU1_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Party name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name2" type="PartyNameU2_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Alternative or complement for party name. See also Name1.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Language" type="PartyLanguageCode_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Identification of the party’s Language description of physical location.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Address" type="AddressU_Segment_0110" minOccurs="0"/>
+      <xs:element name="PartyContact" type="PartyContactU_Segment_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Identification of a person name or department name and their communication channels.
+          There could be one or more for a party.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="role" type="PartyRole_0100" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="PartyIdU_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the party.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="PartyIdU_0100"/>
+      <xs:element name="Type" type="PartyIdType_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartyContactU_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Party contact. Identification of a person name or department name and their communication channels.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartyContactId" type="PartyContactIdU_Segment_0100"/>
+      <xs:element name="Type" type="PartyContactType_0100"/>
+      <xs:element name="CommunicationChannel" type="PartyContactComChannelU_Segment_0100" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartyContactIdU_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The Identifier of the Party contact.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="PartyContactIdU_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartyContactComChannelU_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Party contact communication channel. The identifiers used for communicating with a party, for example, their
+telephone number, email address, etc.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Type" type="PartyContactComChannelType_0100"/>
+      <xs:element name="Value" type="PartyContactComChannelValueU_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Pallet segments version 0100
+
+  -->
+  <xs:complexType name="PalletId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the pallet.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="PalletId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletTypeId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the pallet type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="PalletType_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dim instance for a Pallet.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100"/>
+      <xs:element name="Weight" type="Weight_0100"/>
+      <xs:element name="TareWeight" type="Weight_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tare Weight means empty or starting weight. The tare weight is subtracted from the gross or ending weight to determine the Net Weight of the load.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletDimInstance_Segment_0110">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for a Pallet.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100" minOccurs="0"/>
+      <xs:element name="Weight" type="Weight_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  PalletContent  segments version 0100
+
+  -->
+  <xs:complexType name="PalletContentItem_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A pallet content Item.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdvisedQuantity" type="Qty_0100"/>
+      <xs:element name="AdvisedUnit" type="DeliveryReceiptLineReceiptUnit_0100"/>
+      <xs:element name="TradeQuantity" type="TradeQty_0100" minOccurs="0"/>
+      <xs:element name="TradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="LotInfo" type="PalletContentItemLotInfo_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PalletContentDimensionArea" type="PalletContentDimInstance_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Dimensions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderReference" type="OrderRefInfo_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Outbound order references.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderLinkKey" type="PurchaseOrderLineLinkKey_0100" minOccurs="0"/>
+      <xs:element name="TransitConsolidationKey" type="PurchaseOrderLine_TransitConsolidationKey_0100" minOccurs="0"/>
+      <xs:element name="SerialNumbers" type="SerialNumbers_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletContentDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for the Pallet Content.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100"/>
+      <xs:element name="Weight" type="Weight_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OutboundPalletContentItem_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A pallet content Item.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdvisedQuantity" type="Qty_0100"/>
+      <xs:element name="AdvisedUnit" type="DeliveryReceiptLineReceiptUnit_0100"/>
+      <xs:element name="TradeQuantity" type="TradeQty_0100" minOccurs="0"/>
+      <xs:element name="TradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="LotInfo" type="PalletContentItemLotInfo_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PalletContentDimensionArea" type="PalletContentDimInstance_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Dimensions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderReference" type="OrderRefInfo_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Outbound order references.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderLinkKey" type="PurchaseOrderLineLinkKey_0100" minOccurs="0"/>
+      <xs:element name="TransitConsolidationKey" type="PurchaseOrderLine_TransitConsolidationKey_0100" minOccurs="0"/>
+      <xs:element name="SerialNumbers" type="SerialNumbers_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletContentItemLotInfo_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Lot Information for a pallet content.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LotId" type="LotId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot identification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LotToleranceArea" type="LotToleranceArea_Segment_0100" minOccurs="0"/>
+      <xs:element name="LotProductionArea" type="LotProductionArea_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  PalletType segments
+
+  -->
+  <xs:complexType name="PalletTypeDimensionArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for the Pallet type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Weight" type="Weight_0100" minOccurs="0"/>
+      <xs:element name="External" type="PalletTypeExternalDimensionArea_Segment_0100" minOccurs="0"/>
+      <xs:element name="Internal" type="PalletTypeInternalDimensionArea_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletTypeExternalDimensionArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The pallet types external dimensions.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100" minOccurs="0"/>
+      <xs:element name="Width" type="Width_0100" minOccurs="0"/>
+      <xs:element name="Height" type="Height_0100" minOccurs="0"/>
+      <xs:element name="Length" type="Length_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletTypeInternalDimensionArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The pallet types internal dimensions.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100" minOccurs="0"/>
+      <xs:element name="Width" type="Width_0100" minOccurs="0"/>
+      <xs:element name="Height" type="Height_0100" minOccurs="0"/>
+      <xs:element name="Length" type="Length_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletTypeToleranceArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">PalletType tolerance area.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MinWeightTolerance" type="PalletTypeMinWeightTolerance_0100" minOccurs="0"/>
+      <xs:element name="MaxWeightTolerance" type="PalletTypeMaxWeightTolerance_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PalletTypeLoadToleranceArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The tolerances of the load for the PalletType.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MinWeight" type="Weight_0100" minOccurs="0"/>
+      <xs:element name="MaxWeight" type="Weight_0100" minOccurs="0"/>
+      <xs:element name="MinVolume" type="Volume_0100" minOccurs="0"/>
+      <xs:element name="MaxVolume" type="Volume_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Part segments
+
+  -->
+  <xs:complexType name="PartId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the Part.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="PartId_0100"/>
+      <xs:element name="Revision" type="PartRevision_0100"/>
+      <xs:element name="Division" type="Division_0100">
+        <xs:annotation>
+          <xs:appinfo source="Astro">
+            <appdoc:ElementDesc>
+              <appdoc:table>l62t1</appdoc:table>
+            </appdoc:ElementDesc>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segement for EAN/UPC codes.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SingleUnit" type="EANCodeSingleUnit_Segment_0100" minOccurs="0"/>
+      <xs:element name="HandlingUnit" type="EANCodeHandlingUnit_Segment_0100" minOccurs="0"/>
+      <xs:element name="FullPallet" type="EANCodeFullPallet_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeSingleUnit_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">EAN codes for SingleUnit type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EANCode" type="EANCodeInstanceSingleUnit_Segment_0100" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeHandlingUnit_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">EAN codes for the HandlingUnit type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EANCode" type="EANCodeInstanceHandlingUnit_Segment_0100" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeFullPallet_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">EAN codes for the FullPallet type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EANCode" type="EANCodeInstanceFullPallet_Segment_0100" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeInstanceSingleUnit_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">EAN code Id for a Single unit type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EANCodeId" type="EANCodeId_Segment_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeInstanceHandlingUnit_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">EAN code Id for a Handling unit type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EANCodeId" type="EANCodeId_Segment_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeInstanceFullPallet_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">EAN code Id for a FullPallet.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EANCodeId" type="EANCodeId_Segment_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EANCodeId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the EAN code.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="EANCodeId_0100"/>
+      <xs:element name="Type" type="EANCodeType_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartToleranceArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for Part tolerances.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BestBefore" type="PartBestBefore_0100" minOccurs="0"/>
+      <xs:element name="FlexFifo" type="PartFlexFifo_0100" minOccurs="0"/>
+      <xs:element name="MinWeightTolerance" type="PartMinWeightTolerance_0100" minOccurs="0"/>
+      <xs:element name="MaxWeightTolerance" type="PartMaxWeightTolerance_0100" minOccurs="0"/>
+      <xs:element name="StockTakeLevel" type="PartStockTakeLevel_0100" minOccurs="0"/>
+      <xs:element name="InboundOverDeliveryLevel" type="PartInboundOverDeliveryLevel_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartDimFullPallet_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Part dimensions for a full pallet.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Quantity" type="Qty_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Quantity of a full pallet.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartBufferArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for Part BufferArea information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MHA" type="MHA_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Area.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Rack" type="Rack_0100" minOccurs="0"/>
+      <xs:element name="Zone" type="Zone_0100" minOccurs="0"/>
+      <xs:element name="HorizontalCoordinate" type="HorizontalCoordinate_0100" minOccurs="0"/>
+      <xs:element name="VerticalCoordinate" type="VerticalCoordinate_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartNearBufferArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for Part NearBufferArea information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MHA" type="MHA_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Area.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderArea" type="OrderArea_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartPickArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for Part PickArea information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MHA" type="MHA_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Area.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Rack" type="Rack_0100" minOccurs="0"/>
+      <xs:element name="Zone" type="Zone_0100" minOccurs="0"/>
+      <xs:element name="HorizontalCoordinate" type="HorizontalCoordinate_0100" minOccurs="0"/>
+      <xs:element name="VerticalCoordinate" type="VerticalCoordinate_0100" minOccurs="0"/>
+      <xs:element name="OrderArea" type="OrderArea_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartPiecePickArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for Part PiecePickArea information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MHA" type="MHA_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Area.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Rack" type="Rack_0100" minOccurs="0"/>
+      <xs:element name="Zone" type="Zone_0100" minOccurs="0"/>
+      <xs:element name="HorizontalCoordinate" type="HorizontalCoordinate_0100" minOccurs="0"/>
+      <xs:element name="VerticalCoordinate" type="VerticalCoordinate_0100" minOccurs="0"/>
+      <xs:element name="OrderArea" type="OrderArea_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartMedia_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment for PartMedia information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Context" type="PartMediaContext_0100" minOccurs="1"/>
+      <xs:element name="Source" type="PartMediaSource_0100" minOccurs="1"/>
+      <xs:element name="Path" type="PartMediaPath_0100" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order area for part.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OrderPoint" type="PartOrderPoint_0100" minOccurs="0"/>
+      <xs:element name="OrderQuantity" type="PartRefill_0100" minOccurs="0"/>
+      <xs:element name="MaximumQuantity" type="PartMax_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartDimArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Part dimension information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Stackability" type="PartStackability_Segment_0100" minOccurs="0"/>
+      <xs:element name="NotDivisibleUnit" type="PartNotDivisibleUnit_0100" minOccurs="0"/>
+      <xs:element name="SingleUnitInstance" type="SingleUnitInstance_Segment_0100" minOccurs="0"/>
+      <xs:element name="HandlingUnitInstance" type="HandlingUnitInstance_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            If the quantity for the handling unit is 1, then the values will be copied from the SingleUnitInstance
+            as they mean the same thing. The HandlingUnitInstance segment can in that case be excluded,
+            given that the template part has it's huqty(handling unit quantity) set to 1.0.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartDimFullPallet" type="PartDimFullPallet_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartStackability_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Part stackability information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="HandlingCode" type="PartStackabilityHandlingCode_0100" minOccurs="0"/>
+      <xs:element name="Factor" type="PartStackabilityFactor_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SingleUnitInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Single unit dimension information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Volume" type="Volume_0100"/>
+      <xs:element name="Width" type="Width_0100" minOccurs="0"/>
+      <xs:element name="Height" type="Height_0100" minOccurs="0"/>
+      <xs:element name="Length" type="Length_0100" minOccurs="0"/>
+      <xs:element name="Weight" type="Weight_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HandlingUnitInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Handling unit dimension information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Quantity" type="Qty_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Handling unit quantity.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Volume" type="Volume_0100" minOccurs="0"/>
+      <xs:element name="Width" type="Width_0100"/>
+      <xs:element name="Height" type="Height_0100"/>
+      <xs:element name="Length" type="Length_0100"/>
+      <xs:element name="Weight" type="Weight_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartDangerousGoods_Segment_0100">
+    <xs:annotation>
+      <xs:documentation>Complete DangerousGoods information for a Part.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DGroupId" type="DGroupId_Segment_0100" minOccurs="0"/>
+      <xs:element name="UNNR" type="DGUNNR_0100" minOccurs="0"/>
+      <xs:element name="PSN" type="DGPSN_0100" minOccurs="0"/>
+      <xs:element name="Class" type="DGClass_0100" minOccurs="0"/>
+      <xs:element name="PackingGroup" type="DGPackingGroup_0100" minOccurs="0"/>
+      <xs:element name="LimitedQty" type="DGLimitedQty_0100" minOccurs="0"/>
+      <xs:element name="SubRisk1" type="DGSubRisk1_0100" minOccurs="0"/>
+      <xs:element name="SubRisk2" type="DGSubRisk2_0100" minOccurs="0"/>
+      <xs:element name="SubRisk3" type="DGSubRisk3_0100" minOccurs="0"/>
+      <xs:element name="FlashPoint" type="DGFlashPoint_0100" minOccurs="0"/>
+      <xs:element name="SegregationGroup" type="DGSegregationGroup_0100" minOccurs="0"/>
+      <xs:element name="DGQty" type="DGQty_0100" minOccurs="0"/>
+      <xs:element name="DGPackageType" type="DGPackageType_0100" minOccurs="0"/>
+      <xs:element name="ControlTemperature" type="DGControlTemperature_0100" minOccurs="0"/>
+      <xs:element name="EmergencyTemperature" type="DGEmergencyTemperature_0100" minOccurs="0"/>
+      <xs:element name="MarinePollutant" type="DGMarinePollutant_0100" minOccurs="0"/>
+      <xs:element name="EnvironmentallyHazardous" type="DGEnvironmentallyHazardous_0100" minOccurs="0"/>
+      <xs:element name="TechChemName" type="DGTechChemName_0100" minOccurs="0"/>
+      <xs:element name="Authorization" type="DGAuthorization_0100" minOccurs="0"/>
+      <xs:element name="IsContainedIn" type="DGIsContainedIn_0100" minOccurs="0"/>
+      <xs:element name="IsPackedWith" type="DGIsPackedWith_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DGroupId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation>DGroupId</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="DGroupId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  PurchaseOrder segments
+
+  -->
+  <xs:complexType name="PurchaseOrderHeadId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the purchase order head.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="PurchaseOrderHeadId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderPurchaserArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Information aboute the purchaser.
+        Could for be for ex.
+        the Requester( the person(s) or department that requested that the ordered items to be purchased from the Customer side)
+        or the Buyer ( the person(s) or department responsible for purchasing the ordered items from the customer side).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="PurchaseOrderPurchaserName_0100" minOccurs="0"/>
+      <xs:element name="Phone" type="PurchaseOrderPurchaserTel_0100" minOccurs="0"/>
+      <xs:element name="Fax" type="PurchaseOrderPurchaserFax_0100" minOccurs="0"/>
+      <xs:element name="Department" type="PurchaseOrderPurchaserDepartment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderPlaserArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Information about the order placer.
+        Could for ex. be
+        the Planner (person that is responsible for planning when the ordered items are needed from the Customers side)
+        or the Buyer ( the person(s) or department responsible for purchasing the ordered items from the customer side).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="PurchaseOrderPlacerName_0100" minOccurs="0"/>
+      <xs:element name="Phone" type="PurchaseOrderPlacerTel_0100" minOccurs="0"/>
+      <xs:element name="Fax" type="PurchaseOrderPlacerFax_0100" minOccurs="0"/>
+      <xs:element name="Department" type="PurchaseOrderPlacerDepartment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderSupplierArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Information about the supplier. Could for ex. be
+        the SalesPerson (the person(s) the were responsible for the sale from the suppliers side).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="PurchaseOrderSupplierName_0100" minOccurs="0"/>
+      <xs:element name="Phone" type="PurchaseOrderSupplierPhone_0100" minOccurs="0"/>
+      <xs:element name="Fax" type="PurchaseOrderSupplierFax_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  PurchaseOrderline segments
+
+  -->
+  <xs:complexType name="PurchaseOrderLineCreate_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Purchase order line information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineType" type="PurchaseOrderLineType_0100"/>
+      <xs:element name="DeliveryDate" type="PurchaseOrderLineDeliveryDate_0100"/>
+      <xs:element name="DeliveryTime" type="PurchaseOrderLineDeliveryTime_0100" minOccurs="0"/>
+      <xs:element name="OrderedQuantity" type="PurchaseOrderLineOrderedQty_0100"/>
+      <xs:element name="PartDescription" type="PurchaseOrderLineDescription_0100" minOccurs="0"/>
+      <xs:element name="ReceptionArea" type="PurchaseOrderLineReceptionArea_0100" minOccurs="0"/>
+      <xs:element name="GoodsMarking" type="PurchaseOrderLineGoodsMarking_0100" minOccurs="0"/>
+      <xs:element name="ExpressOrderMarker" type="PurchaseOrderLineExpressOrderMarker_0100" minOccurs="0"/>
+      <xs:element name="UnitInformation" type="PurchaseOrderLineUnitInformation_0100" minOccurs="0"/>
+      <xs:element name="DeliveredUnit" type="PurchaseOrderLineDeliveredUnit_0100"/>
+      <xs:element name="ConversionFactorDeliveredUnit" type="PurchaseOrderLineDeliveredUnitConversionFactor_0100" minOccurs="0"/>
+      <xs:element name="SupplierNumber" type="SupplierId_0100"/>
+      <xs:element name="SupplierPartNo" type="SupplierPartNo_0100" minOccurs="0"/>
+      <xs:element name="FreeText" type="FreeTextArea_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">General freetext information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderLinkKey" type="PurchaseOrderLineLinkKey_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Order link key.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransitConsolidationKey" type="PurchaseOrderLine_TransitConsolidationKey_0100" minOccurs="0"/>
+      <xs:element name="WarehousingServiceInstruction" type="WarehousingServiceInstruction_Segment_0100" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderLineCreateU_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Purchase order line information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineType" type="PurchaseOrderLineType_0100"/>
+      <xs:element name="DeliveryDate" type="PurchaseOrderLineDeliveryDate_0100"/>
+      <xs:element name="DeliveryTime" type="PurchaseOrderLineDeliveryTime_0100" minOccurs="0"/>
+      <xs:element name="OrderedQuantity" type="PurchaseOrderLineOrderedQty_0100"/>
+      <xs:element name="PartDescription" type="PurchaseOrderLineDescriptionU_0100" minOccurs="0"/>
+      <xs:element name="ReceptionArea" type="PurchaseOrderLineReceptionArea_0100" minOccurs="0"/>
+      <xs:element name="GoodsMarking" type="PurchaseOrderLineGoodsMarking_0100" minOccurs="0"/>
+      <xs:element name="ExpressOrderMarker" type="PurchaseOrderLineExpressOrderMarker_0100" minOccurs="0"/>
+      <xs:element name="UnitInformation" type="PurchaseOrderLineUnitInformation_0100" minOccurs="0"/>
+      <xs:element name="DeliveredUnit" type="PurchaseOrderLineDeliveredUnit_0100"/>
+      <xs:element name="ConversionFactorDeliveredUnit" type="PurchaseOrderLineDeliveredUnitConversionFactor_0100" minOccurs="0"/>
+      <xs:element name="SupplierNumber" type="SupplierId_0100"/>
+      <xs:element name="SupplierPartNo" type="SupplierPartNo_0100" minOccurs="0"/>
+      <xs:element name="FreeText" type="FreeTextArea_0100" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">General freetext information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderLinkKey" type="PurchaseOrderLineLinkKey_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Order link key.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransitConsolidationKey" type="PurchaseOrderLine_TransitConsolidationKey_0100" minOccurs="0"/>
+      <xs:element name="WarehousingServiceInstruction" type="WarehousingServiceInstruction_Segment_0100" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderLine_Segment_0110">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">PurchaseOrderLine segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line references.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineType" type="PurchaseOrderLineType_0100" minOccurs="0"/>
+      <xs:element name="DeliveryDate" type="PurchaseOrderLineDeliveryDate_0100" minOccurs="0"/>
+      <xs:element name="DeliveryTime" type="PurchaseOrderLineDeliveryTime_0100" minOccurs="0"/>
+      <xs:element name="OrderedQuantity" type="Qty_0100" minOccurs="0"/>
+      <xs:element name="PartDescription" type="PurchaseOrderLineDescription_0100" minOccurs="0"/>
+      <xs:element name="ReceptionArea" type="PurchaseOrderLineReceptionArea_0100" minOccurs="0"/>
+      <xs:element name="GoodsMarking" type="PurchaseOrderLineGoodsMarking_0100" minOccurs="0"/>
+      <xs:element name="ExpressOrderMarker" type="PurchaseOrderLineExpressOrderMarker_0100" minOccurs="0"/>
+      <xs:element name="UnitInformation" type="PurchaseOrderLineUnitInformation_0100" minOccurs="0"/>
+      <xs:element name="DeliveredUnit" type="PurchaseOrderLineDeliveredUnit_0100" minOccurs="0"/>
+      <xs:element name="ConversionFactorDeliveredUnit" type="PurchaseOrderLineDeliveredUnitConversionFactor_0100" minOccurs="0"/>
+      <xs:element name="SupplierNumber" type="SupplierId_0100" minOccurs="0"/>
+      <xs:element name="FreeText" type="FreeTextArea_0100" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="LotNumber" type="LotNumber_0100" minOccurs="0"/>
+      <xs:element name="LotProductionDate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="LotExpireDate" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderLineU_Segment_0110">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">PurchaseOrderLine segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line references.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineType" type="PurchaseOrderLineType_0100" minOccurs="0"/>
+      <xs:element name="DeliveryDate" type="PurchaseOrderLineDeliveryDate_0100" minOccurs="0"/>
+      <xs:element name="DeliveryTime" type="PurchaseOrderLineDeliveryTime_0100" minOccurs="0"/>
+      <xs:element name="OrderedQuantity" type="Qty_0100" minOccurs="0"/>
+      <xs:element name="PartDescription" type="PurchaseOrderLineDescriptionU_0100" minOccurs="0"/>
+      <xs:element name="ReceptionArea" type="PurchaseOrderLineReceptionArea_0100" minOccurs="0"/>
+      <xs:element name="GoodsMarking" type="PurchaseOrderLineGoodsMarking_0100" minOccurs="0"/>
+      <xs:element name="ExpressOrderMarker" type="PurchaseOrderLineExpressOrderMarker_0100" minOccurs="0"/>
+      <xs:element name="UnitInformation" type="PurchaseOrderLineUnitInformation_0100" minOccurs="0"/>
+      <xs:element name="DeliveredUnit" type="PurchaseOrderLineDeliveredUnit_0100" minOccurs="0"/>
+      <xs:element name="ConversionFactorDeliveredUnit" type="PurchaseOrderLineDeliveredUnitConversionFactor_0100" minOccurs="0"/>
+      <xs:element name="SupplierNumber" type="SupplierId_0100" minOccurs="0"/>
+      <xs:element name="FreeText" type="FreeTextArea_0100" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="LotNumber" type="LotNumber_0100" minOccurs="0"/>
+      <xs:element name="LotProductionDate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="LotExpireDate" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderLine_Segment_0120">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">PurchaseOrderLine segment. </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line references.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderLineId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the purchase order line.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PurchaseOrderHeadId" type="PurchaseOrderHeadId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+      <xs:element name="Id" type="PurchaseOrderLineId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PurchaseOrderReceivedReport_Line_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">PurchaseOrderReceived Line segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line references.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineStatus" type="PurchaseOrderLineStatus_0100" minOccurs="0"/>
+      <xs:element name="PartId" type="PartId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceivedQuantity" type="PurchaseOrderLineReceivedQty_0100"/>
+      <xs:element name="DeliveredTradeQuantity" type="TradeQty_0100" minOccurs="0"/>
+      <xs:element name="DeliveredTradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="OrderedQuantity" type="PurchaseOrderLineOrderedQty_0100"/>
+      <xs:element name="AdvisedQuantity" type="PurchaseOrderLineAdvisedQty_0100"/>
+      <xs:element name="PurchaseOrderLineType" type="PurchaseOrderLineType_0100" />
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Remark segments
+
+  -->
+  <xs:complexType name="Remark_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment with remark infromation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RemarkCode" type="RemarkCode_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Route segments
+
+  -->
+  <xs:complexType name="RouteTimingArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment with timing specifications for route.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RemainingDaysToDeliveryDate" type="RouteRemainingDaysToDeliveryDate_0100" minOccurs="0"/>
+      <xs:element name="StopTime" type="RouteStopTime_0100" minOccurs="0"/>
+      <xs:element name="RemainingDaysToStopDate" type="RouteRemainingDaysToStopDate_0100" minOccurs="0"/>
+      <xs:element name="PickTime" type="RoutePickTime_0100" minOccurs="0"/>
+      <xs:element name="RemainingDaysToPickDate" type="RouteRemainingDaysToPickDate_0100" minOccurs="0"/>
+      <xs:element name="LoadTime" type="RouteLoadTime_0100" minOccurs="0"/>
+      <xs:element name="RemainingDaysToLoadDate" type="RouteRemainingDaysToLoadDate_0100" minOccurs="0"/>
+      <xs:element name="PackTime" type="RoutePackTime_0100" minOccurs="0"/>
+      <xs:element name="RemainingDaysToPackDate" type="RouteRemainingDaysToPackDate_0100" minOccurs="0"/>
+      <xs:element name="BoxCalculationTime" type="RouteBoxCalculationTime_0100" minOccurs="0"/>
+      <xs:element name="RemainingDaysToBoxCalculationDate" type="RouteRemainingDaysToBoxCalculationDate_0100" minOccurs="0"/>
+      <xs:element name="EstimatedDrivingTime" type="RouteEstimatedDrivingTime_0100" minOccurs="0"/>
+      <xs:element name="EstimatedLoadingTime" type="RouteEstimatedLoadingTime_0100" minOccurs="0"/>
+      <xs:element name="EstimatedTimePerStop" type="RouteEstimatedTimePerStop_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RouteReleaseInformationArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment with release information for route.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AutomaticReleaseCode" type="RouteAutomaticReleaseCode_0100" minOccurs="0"/>
+      <xs:element name="DaysOfForwardAutoRelease" type="RouteDaysOfForwardAutoRelease_0100" minOccurs="0"/>
+      <xs:element name="IncreaseSequence" type="RouteIncreaseSequence_0100" minOccurs="0"/>
+      <xs:element name="OneDropPointPerTripSequence" type="RouteOneDropPointPerTripSequence_0100" minOccurs="0"/>
+      <xs:element name="AutomaticAssignmentReleaseCode" type="RouteAutomaticAssignmentReleaseCode_0100" minOccurs="0"/>
+      <xs:element name="MaxInGroupToRelease" type="RouteMaxGroupToRelease_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+  
+  ShippedPackage segments version 0100
+
+  -->
+  <xs:complexType name="ShippedPackageId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation>Segment with ShippedPackageId</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="ShippedPackageId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  StUnit segments version 0100
+
+  -->
+  <xs:complexType name="StUnitArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">StUnit(Storage Unit) information segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StUnitId" type="StUnitId_Segment_0100"/>
+      <xs:element name="StUnitType" type="StUnitType_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StUnitId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the StUnit (Storage Unit).</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="StUnitId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StUnitReceivedReference_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Reference for one receiving.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ReceivedQuantity" type="PurchaseOrderLineReceivedQty_0100"/>
+      <xs:element name="ReceivedTradeQuantity" type="TradeQty_0100" minOccurs="0"/>
+      <xs:element name="ReceivedTradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="AccountDestination" type="AccountDestination_Segment_0100" minOccurs="0"/>
+      <xs:element name="LotId" type="LotId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SerialNumbers" type="SerialNumbers_0100" minOccurs="0"/>
+      <xs:element name="MeltNumbers" type="MeltNumbers_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StUnitReceivedReference_ProductionOrder_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Reference for one receiving.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ReceivedQuantity" type="PurchaseOrderLineReceivedQty_0100"/>
+      <xs:element name="AccountDestination" type="AccountDestination_Segment_0100" minOccurs="0"/>
+      <xs:element name="LotId" type="LotId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SerialNumbers" type="SerialNumbers_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StUnitCloseReference_ProductionOrder_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Reference for one close.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StUnitId" type="StUnitId_0100"/>
+      <xs:element name="LinkKey" type="ProductionOrderLinkKey_0100" minOccurs="0"/>
+      <xs:element name="AccountDestination" type="AccountDestination_Segment_0100" minOccurs="0"/>
+      <xs:element name="LotId" type="LotId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SerialNumbers" type="SerialNumbers_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StUnitProducedLotInfo_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Lot Information for a produced StUnit.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LotId" type="LotId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot identification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LotToleranceArea" type="LotToleranceArea_Segment_0100" minOccurs="0"/>
+      <xs:element name="LotProductionArea" type="LotProductionArea_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Transport segments
+
+  -->
+  <xs:complexType name="TransportId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that uniquely identifies a transport.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="TransportId_0100"/>
+      <xs:element name="Date" type="TransportDate_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportId_Segment_0110">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that uniquely identifies a transport.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="TransportId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderTransportArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order Transport information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RouteAssignmentKey" type="OrderRouteAssignmentKey_0100"/>
+      <xs:element name="DeliveryDate" type="OrderPromisedShipDate_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Requested date when order should be delivered from the consignor.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeliveryTime" type="OrderPromisedShipTime_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Note, only valid if a DeliveryDate is defined.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubRoute" type="OrderSubRoute_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Route information for a receiving system in the next shipping leg. I.e. the name of the route in the system that receives this outbound order as a cross docking package. Used for orders that should be CrossDocked, see outbound documents with CrossDock infromation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportInfo_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Transportation information. Information with regards to the transportation and delivery of goods.
+      </xs:documentation>
+      <xs:appinfo source="Astro">
+        <appdoc:ElementDesc>
+          <appdoc:info xml:lang="en">An inbound transport (G30T1) or a outbound trip (R08T1).</appdoc:info>
+        </appdoc:ElementDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TransportId" type="TransportId_Segment_0110">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Transport identification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportDate" type="TransportDate_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportInfoArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Transport information. This information is usally related to the forwarder/carrier, see Party segment and role Carrier.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TransportService" type="TransportInfoTransportService_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Transport service.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AddOnServices" type="TransportInfoAddOnServicesArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Additional "Add on service" for the defined transport service.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaymentInstruction" type="TransportInfoPaymentInstruction_0100" minOccurs="0"/>
+      <xs:element name="GAN" type="TransportInfoGAN_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">GodsAdresseringsNummer. A number to identify the goods receiver.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SenderPalletRegNumber" type="TransportInfoSenderPalletRegNumber_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The senders pallet registration number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceiverPalletRegNumber" type="TransportInfoReceiverPalletRegNumber_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The receivers pallet registration number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceiveDate" type="TransportInfoReceiveDate_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Requested date when order should be delivered at the consignee.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceiveTime" type="TransportInfoReceiveTime_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Note, only valid if a ReceiveDate is defined.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentInformation" type="TransportInfoDocumentInformation_0100" minOccurs="0"/>
+      <xs:element name="DeliveryInstructions" type="TransportInfoDeliveryInstructionsArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Delivery instructions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TermsOfDelivery" type="TransportInfoTermsOfDeliveryArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Defines terms of delivery. Conditions in a transportation contract that specify such things as for ex. freight charges, place of delivery, etc.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CashOnDelivery" type="TransportInfoCashOnDeliveryArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Information for cash on delivery. Included when receiver/consignee is the transport payer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportInfoAddOnServicesArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">AddOnService information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AddOnService" type="TransportInfoAddOnService_0100" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportInfoDeliveryInstructionsArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Order delivery instructions.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DeliveryInstruction1" type="TransportInfoDeliveryInstruction_0100" minOccurs="0"/>
+      <xs:element name="DeliveryInstruction2" type="TransportInfoDeliveryInstruction_0100" minOccurs="0"/>
+      <xs:element name="DeliveryInstruction3" type="TransportInfoDeliveryInstruction_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportInfoTermsOfDeliveryArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+      Terms of delivery.
+      I.e. the conditions in a transportation contract that specify such things as for ex.  freight charges, place of delivery, and time of delivery, etc.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="TransportInfoTermsOfDeliveryCode_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">A code that defines, usally pre-agreed, terms of delivery.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CodeType" type="TransportInfoTermsOfDeliveryCodeType_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Type of terms of delivery code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Description" type="TransportInfoTermsOfDeliveryDescription_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">A text description.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Location" type="TransportInfoTermsOfDeliveryLocation_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">A location where the responsibility takes over for the specific terms of delivery.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CountryCode" type="TransportInfoTermsOfDeliveryCountryCode_0100" minOccurs="0"/>
+      <xs:element name="Notes" type="TransportInfoTermsOfDeliveryNotes_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Notes as freetext.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportInfoCashOnDeliveryArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Cash Of Delivery.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Amount" type="TransportInfoCashOnDeliveryAmount_0100" minOccurs="0"/>
+      <xs:element name="Currency" type="TransportInfoCashOnDeliveryCurrency_0100" minOccurs="0"/>
+      <xs:element name="PaymentMethod" type="TransportInfoCashOnDeliveryPaymentMethod_0100" minOccurs="0"/>
+      <xs:element name="AccountNumber" type="TransportInfoCashOnDeliveryAccountNumber_0100" minOccurs="0"/>
+      <xs:element name="Reference" type="TransportInfoCashOnDeliveryReference_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  Trip segments version 0100
+
+  -->
+  <xs:complexType name="TripId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that uniquely identifies a trip.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Date" type="TripDate_0100"/>
+      <xs:element name="Route" type="RouteId_0100"/>
+      <xs:element name="SeqNumber" type="TripSequenceNumber_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TripDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for a trip.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Weight" type="TripPickedVolume_0100"/>
+      <xs:element name="Volume" type="TripPickedWeight_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  ProductionOrder segments version 0100
+
+  -->
+  <xs:complexType name="ProductionOrderReceivedReport_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">ProductionOrderReceived segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductionOrderHeadId" type="ProductionOrderHeadId_Segment_0100"/>
+      <xs:element name="ExternalProductionOrderId" type="ExternalProductionOrderId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">External production order identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductionOrderType" type="ProductionOrderType_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Type of production order.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceivedQuantity" type="PurchaseOrderLineReceivedQty_0100"/>
+      <xs:element name="OrderedQuantity" type="PurchaseOrderLineOrderedQty_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProductionOrderHeadId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the production order.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="ProductionOrderId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  ProductionOrderClose segment version 0100
+
+  -->
+  <xs:complexType name="ProductionOrderCloseReport_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">ProductionOrderClose segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductionOrderHeadId" type="ProductionOrderHeadId_Segment_0100"/>
+      <xs:element name="ExternalProductionOrderId" type="ExternalProductionOrderId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">External production order identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductionOrderType" type="ProductionOrderType_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Type of production order.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartId" type="PartId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceivedQuantity" type="PurchaseOrderLineReceivedQty_0100"/>
+      <xs:element name="OrderedQuantity" type="PurchaseOrderLineOrderedQty_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  ProductionOrderOperation segments version 0100
+
+  -->
+  <xs:complexType name="ProductionOrderOperationId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that uniquely identifies this Production Order Operation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductionOrderHeadId" type="ProductionOrderHeadId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+      <xs:element name="Id" type="ProductionOrderOperationId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  ProductionOrderOperationLine segments version 0100
+
+  -->
+  <xs:complexType name="ProductionOrderOperationLine_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that uniquely identifies this Production Order Operation Line.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductionOrderOperationLineId" type="ProductionOrderOperationLineId_Segment_0100"/>
+      <xs:element name="ExternalProductionOrderOperationLineId" type="ExternalProductionOrderOperationLineId_0100" minOccurs="0"/>
+      <xs:element name="LinkKey" type="ProductionOrderOperationLineLinkKey_0100" minOccurs="0"/>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RequestedQuantity" type="RequestedQty_0100"/>
+      <xs:element name="MHA" type="MHA_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Name of  area.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PlanDate" type="ProductionOrderOperationLinePlanDate_0100" minOccurs="0"/>
+      <xs:element name="ReadyDate" type="ProductionOrderOperationLineReadyDate_0100" minOccurs="0"/>
+      <xs:element name="ProductionOrderOperationLineType" type="ProductionOrderOperationLineType_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProductionOrderOperationLineId_Segment_0100">
+    <xs:sequence>
+      <xs:element name="ProductionOrderHeadId" type="ProductionOrderHeadId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+      <xs:element name="ProductionOrderOperationId" type="ProductionOrderOperationId_0100"/>
+      <xs:element name="Id" type="ProductionOrderOperationLineId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProductionOrderOperationLine_Report_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">ProductionOrderOperationLine report segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductionOrderOperationLineId" type="ProductionOrderOperationLineId_Segment_0100"/>
+      <xs:element name="ExternalProductionOrderOperationLineId" type="ExternalProductionOrderOperationLineId_0100" minOccurs="0"/>
+      <xs:element name="ProductionOrderOperationLineType" type="ProductionOrderOperationLineType_0100"/>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RequestedQuantity" type="RequestedQty_0100"/>
+      <xs:element name="PickedQuantity" type="Qty_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProductionOrderOperationLinePickedReference_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">ProductionOrderOperationLine report segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PickedQuantity" type="Qty_0100"/>
+      <xs:element name="AccountSource" type="AccountSource_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">From account.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LotId" type="LotId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PurchaseOrderLineId" type="PurchaseOrderLineId_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Purchase order line references.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SerialNumbers" type="SerialNumbers_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  TrackingInfo segments version 0100
+
+  -->
+  <xs:complexType name="TrackingInfoArea_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">General tracking information segment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TrackingCode" type="TrackingInfoCode_0100"/>
+      <xs:element name="TrackingValue" type="TrackingInfoValue_0100"/>
+    </xs:sequence>
+    <xs:attribute name="type" type="TrackingInfoType_0100" use="optional"/>
+  </xs:complexType>
+  <!--
+
+  TransportConsignment segments version 0100
+
+  -->
+  <xs:complexType name="TransportConsignmentId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that uniquely identifies a Transport consignment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="TransportConsignmentId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportConsignmentDimInstance_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Dimension instance for a TransportConsignment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Weight" type="TransportConsignmentVolume_0100"/>
+      <xs:element name="Volume" type="TransportConsignmentWeight_0100"/>
+      <xs:element name="LoadingMeasure" type="TransportConsignmentLoadingMeasure_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportConsignmentFreightCostArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">FreightCost instance for the transport consignment.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Status" type="TransportConsignmentFreightCostStatus_0100"/>
+      <xs:element name="Price" type="TransportConsignmentFreightCostPrice_0100"/>
+      <xs:element name="Currency" type="TransportConsignmentFreightCostCurrency_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReturnCode_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">ReturnCode returned by return station containg code type and code value.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ReturnCodeValue" type="ReturnCodeValue_0100"/>
+    </xs:sequence>
+    <xs:attribute name="type" type="ReturnCodeType_0100" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="ReturnLineId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">ReturnLineId that uniquely identifies this return line.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="ReturnLineId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReturnLineSerialNumberId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Serial number according to GS1 - 20 character string.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="SerialNumberId_Id_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReturnLineSerialNumber_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Serial number composed from id and additional serial number according to GS1.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SerialNumberId" type="ReturnLineSerialNumberId_Segment_0100"/>
+      <xs:element name="AdditionalSerialNumber" type="AdditionalSerialNumber_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ShippedPackageContentSerialNumberId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Serial number according to GS1 - 20 character string.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="SerialNumberId_Id_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ShippedPackageContentSerialNumber_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Serial number composed from id and additional serial number according to GS1.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SerialNumberId" type="ShippedPackageContentSerialNumberId_Segment_0100"/>
+      <xs:element name="AdditionalSerialNumber" type="AdditionalSerialNumber_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReturnLineLotId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the Lot.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="LotId_0100"/>
+      <xs:element name="SupplierId" type="SupplierId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ShippedPackageContentLotId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Segment that identifies the Lot.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="LotId_0100"/>
+      <xs:element name="SupplierId" type="SupplierId_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ShippedPackageContent_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">ShippedPackageContent segment highlighting shipped package content to customer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">PartId description.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShippedQty" type="ShippedQty_0100"/>
+      <xs:element name="ShippedPackageContentSerialNumber" type="ShippedPackageContentSerialNumber_Segment_0100" minOccurs="0"/>
+      <xs:element name="ShippedPackageContentLotId" type="ShippedPackageContentLotId_Segment_0100" minOccurs="0"/>
+      <xs:element name="OrderLineId" type="OrderLineId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">OrderlineId data.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherOrderReference" type="OrderLineOtherExtOrderReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OtherOrderLineReference" type="OrderLineOtherExtOrderLineReference_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Other order line reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShippedPackageReceiverId" type="ShippedPackageReceiverId_0100"/>
+      <xs:element name="RmaNumber" type="RmaNumber_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  WarehousingServiceInstruction segments version 0100
+
+  -->
+  <xs:complexType name="WarehousingServiceInstruction_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Warehousing service instruction information. A value-added service (VAS) instruction.
+          Note, logic requires a licence key.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="WarehousingServiceInstructionId" type="WarehousingServiceInstructionId_Segment_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="WarehousingServiceInstructionId_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Warehousing Service Instruction Id.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Id" type="WarehousingServiceInstructionId_0100"/>
+      <xs:element name="Division" type="Division_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+
+  StUnitCreate segments version 0100
+
+  -->
+  <xs:complexType name="StUnitLocation_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Storage unit location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MHA" type="MHA_0100" />
+      <xs:element name="Rack" type="Rack_0100" minOccurs="0"/>
+      <xs:element name="HorizontalCoordinate" type="HorizontalCoordinate_0100" minOccurs="0"/>
+      <xs:element name="VerticalCoordinate" type="VerticalCoordinate_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!--
+    230825/noerifl - KES-42   - Elements for OnnBalanceList
+  -->
+  <xs:complexType name="ControlArea_Segment_0200">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Control Area.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Sender" type="Sender_Segment_0120"/>
+      <xs:element name="CreationDateTime" type="dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            DateTime when document was created.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReferenceId" type="ReferenceId_Segment_0100"/>
+      <xs:element name="UserArea" type="UserArea_Segment_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="UserArea_Segment_0100" block="restriction">
+    <xs:annotation>
+      <xs:documentation>Application Specific.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+      <!-- <any processContents="skip" minOccurs="0" maxOccurs="unbounded"/> -->
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="Sender_Segment_0120">
+    <xs:annotation>
+      <xs:documentation>Sender segment version 0120.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LogicalId" type="SenderLogicalId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Logical Identifier element is the identification of the sending application from which the document originated.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ComponentId" type="SenderComponentId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+          The Component ID provides a finer level of control than Logical Identifier and represents the business component that issued the Business   object document.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Task" type="SenderTask_Segment_0120" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation> The Task describes the business event that initiated the need for the Business Object Document to be created.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Confirmation" type="Confirmation_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="SenderTask_Segment_0120">
+    <xs:annotation>
+      <xs:documentation>Sender Task segment version 0120.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TaskId" type="SenderTaskId_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            An task ID that describes the business event that initiated the need for the Business Object Document to be created.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EventArea" type="EventArea_Segment_0100" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="EventArea_Segment_0100">
+    <xs:annotation>
+      <xs:documentation>EventArea.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Prefix" type="EventPrefix_0100"/>
+      <xs:element name="Object" type="EventObject_0100"/>
+      <xs:element name="Verb"   type="EventVerb_0100"/>
+      <xs:element name="Level"  type="EventLevel_0100"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>

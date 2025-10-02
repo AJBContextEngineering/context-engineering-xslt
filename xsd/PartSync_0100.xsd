@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Name: PartSync_0100.xsd
+  Srvs: PartSync version 0100
+
+  Revisions:
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.consafelogistics.com/astro/project" xmlns:appdoc="appdoc" targetNamespace="http://www.consafelogistics.com/astro/project" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0100">
+  <xs:include schemaLocation="../Element/Segment.xsd"/>
+  <!--
+
+  Description of the Document. Used for documentation.
+
+  -->
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+      The purpose of the PartSync is to supply part (item) information for parts being managed as inventory in Astro.
+      Note, the sync expression delete, could mean that the part will be marked for deletion. 
+
+      For more information, see the scenario documentation.
+    </xs:documentation>
+    <xs:appinfo source="Astro">
+      <appdoc:SrvsDesc>
+        <appdoc:info xml:lang="en">Will create/update/delete part(L62T1) with sent values.</appdoc:info>
+      </appdoc:SrvsDesc>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PartSync" type="PartSync_Srvs_Segment"/>
+  <xs:complexType name="PartSync_Srvs_Segment">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The name and version of the service.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Service_Segment_0100">
+        <xs:sequence>
+          <xs:element name="ControlArea" type="ControlArea_Segment_0100"/>
+          <xs:element name="DataArea" type="PartSyncDataArea_Srvs_Segment_0100"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PartSyncDataArea_Srvs_Segment_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The service for PartSync version 0100.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DataArea_Segment">
+        <xs:sequence>
+          <xs:element name="Sync" type="VerbSync_Segment_0130">
+            <xs:annotation>
+              <xs:documentation xml:lang="en"/>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Part" type="PartSyncPart_Srvs_Segment_0100" maxOccurs="1000"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PartSyncPart_Srvs_Segment_0100">
+    <xs:sequence>
+      <xs:element name="PartId" type="PartId_Segment_0100">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Part identification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EANCodeArea" type="EANCodeArea_Segment_0100" minOccurs="0"/>
+      <xs:element name="Description" type="PartDescriptionU_0100"/>
+      <xs:element name="UnitType" type="PartUnitType_0100"/>
+      <xs:element name="TradeUnit" type="TradeUnit_0100" minOccurs="0"/>
+      <xs:element name="SerialNumberLevel" type="PartSerialNumberLevel_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Serial number logic.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WLDCT" type="PartWLDCT_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Requested load carrier type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartToleranceArea" type="PartToleranceArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tolerance information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartDimensionArea" type="PartDimArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Dimension information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartBufferArea" type="PartBufferArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Buffer location information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartNearBufferArea" type="PartNearBufferArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">NearBuffer location information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartPickArea" type="PartPickArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Pick location information. 
+          Default pick location type is "single fixed picklocation". Note, supply a complete location (MHA, rack, etc.). 
+          Note, modifications are needed, for other pick location types.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartPiecePickArea" type="PartPiecePickArea_Segment_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">PiecePick location information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LotCreationCode" type="PartBatchCreationCode_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Lot(batch) logic.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FifoCreationCode" type="PartFifoCreationCode_0100" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">FIFO (FirstInFirstOut) logic.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PartGroup1" type="PartGroup1_0100" minOccurs="0"/>
+      <xs:element name="PartGroup2" type="PartGroup2_0100" minOccurs="0"/>
+      <xs:element name="PartGroup3" type="PartGroup3_0100" minOccurs="0"/>
+      <xs:element name="PartGroup4" type="PartGroup4_0100" minOccurs="0"/>
+      <xs:element name="PartGroup5" type="PartGroup5_0100" minOccurs="0"/>
+      <xs:element name="PartGroup6" type="PartGroup6_0100" minOccurs="0"/>
+      <xs:element name="PartGroup7" type="PartGroup7_0100" minOccurs="0"/>
+      <xs:element name="PartGroup8" type="PartGroup8_0100" minOccurs="0"/>
+      <xs:element name="PartGroup9" type="PartGroup9_0100" minOccurs="0"/>
+      <xs:element name="PartMedia" type="PartMedia_Segment_0100" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="FireCode" type="PartFireCode_0100" minOccurs="0" />
+      <xs:element name="DangerousGoodsArea" type="PartDangerousGoods_Segment_0100" minOccurs="0" />
+      
+      <!-- 230815/noerifl - KES-10 -->
+      <xs:element name="QRCodeContent" type="QRCodeContent_0100" minOccurs="0" />
+      <xs:element name="MaterialName1" type="MaterialName1_0100" minOccurs="0" />
+      <xs:element name="MaterialName2" type="MaterialName2_0100" minOccurs="0" />
+      <xs:element name="MaterialNameExtra" type="MaterialNameExtra_0100" minOccurs="0" />
+      <xs:element name="MeltNumber" type="MeltNumberFlag_0100" minOccurs="0" />
+      <xs:element name="PLC" type="PLC_0100" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="QRCodeContent_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">QR code</xs:documentation>
+      <xs:appinfo source="Astro">
+        <appdoc:ElementDesc>
+          <appdoc:table>l62t1</appdoc:table>
+          <appdoc:term>qrcode</appdoc:term>
+        </appdoc:ElementDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="string500"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="MaterialName1_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Material name 1</xs:documentation>
+        <xs:appinfo source="Astro">
+        <appdoc:ElementDesc>
+          <appdoc:table>l62t1</appdoc:table>
+          <appdoc:term>matnam1</appdoc:term>
+        </appdoc:ElementDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="string30"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="MaterialName2_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Material name 2</xs:documentation>
+        <xs:appinfo source="Astro">
+        <appdoc:ElementDesc>
+          <appdoc:table>l62t1</appdoc:table>
+          <appdoc:term>matnam2</appdoc:term>
+        </appdoc:ElementDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="string30"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="MaterialNameExtra_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Material name extra</xs:documentation>
+        <xs:appinfo source="Astro">
+        <appdoc:ElementDesc>
+          <appdoc:table>l62t1</appdoc:table>
+          <appdoc:term>matnamex</appdoc:term>
+        </appdoc:ElementDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="string40"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="MeltNumberFlag_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Flag for melt number handling. 0 = No melt handling, 1 = Melt handling</xs:documentation>
+        <xs:appinfo source="Astro">
+        <appdoc:ElementDesc>
+          <appdoc:table>l62t1</appdoc:table>
+          <appdoc:term>melthand</appdoc:term>
+        </appdoc:ElementDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="boolean"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="PLC_0100">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Primary local code</xs:documentation>
+        <xs:appinfo source="Astro">
+        <appdoc:ElementDesc>
+          <appdoc:table>l62t1</appdoc:table>
+          <appdoc:term>plc</appdoc:term>
+        </appdoc:ElementDesc>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="string30"/>
+  </xs:simpleType>
+
+</xs:schema>
