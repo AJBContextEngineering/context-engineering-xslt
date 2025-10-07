@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DELVRY07>
+    <IDOC>
+        <EDI_DC40>
+            <DOCNUM>0000123456</DOCNUM>
+            <CREDAT>20250107</CREDAT>
+            <CRETIM>143530</CRETIM>
+        </EDI_DC40>
+        <E1EDL20>
+            <VBELN>8000123456</VBELN>
+            <BTGEW>125.50</BTGEW>
+            <VOLUM>2.75</VOLUM>
+            <ANZPK>5</ANZPK>
+            <BOLNR>BOL2025001</BOLNR>
+            <E1ADRM1 SEGMENT="1">
+                <PARTNER_Q>LF</PARTNER_Q>
+                <PARTNER_ID>SUPPLIER001</PARTNER_ID>
+                <NAME1>Main Supplier Ltd</NAME1>
+            </E1ADRM1>
+            <E1ADRM1 SEGMENT="1">
+                <PARTNER_Q>WE</PARTNER_Q>
+                <PARTNER_ID>SHIP001</PARTNER_ID>
+                <NAME1>Ship To Customer</NAME1>
+            </E1ADRM1>
+            <E1EDL24>
+                <WERKS>1000</WERKS>
+                <POSNR>000010</POSNR>
+                <MATNR>MAT001</MATNR>
+            </E1EDL24>
+            <E1EDL37>
+                <EXIDV>PAL001</EXIDV>
+                <EXIDV2>PAL001-EXT</EXIDV2>
+                <MAGRV>Z001</MAGRV>
+                <BTVOL>1.25</BTVOL>
+                <BRGEW>45.75</BRGEW>
+                <E1EDL44>
+                    <MATNR>MAT12345</MATNR>
+                    <WERKS>1000</WERKS>
+                    <VEMNG>100.50</VEMNG>
+                    <VEMEH>KGM</VEMEH>
+                    <CHARG>BATCH2025001</CHARG>
+                </E1EDL44>
+                <E1EDL44>
+                    <MATNR>MAT67890</MATNR>
+                    <WERKS>1000</WERKS>
+                    <VEMNG>50.25</VEMNG>
+                    <VEMEH>NAR</VEMEH>
+                    <CHARG>BATCH2025002</CHARG>
+                </E1EDL44>
+            </E1EDL37>
+            <E1EDL37>
+                <EXIDV>PAL002</EXIDV>
+                <EXIDV2></EXIDV2>
+                <MAGRV>P100</MAGRV>
+                <BTVOL>0.85</BTVOL>
+                <BRGEW>30.20</BRGEW>
+                <E1EDL44>
+                    <MATNR>MAT11111</MATNR>
+                    <WERKS>2000</WERKS>
+                    <VEMNG>75.00</VEMNG>
+                    <VEMEH>BG</VEMEH>
+                    <CHARG>BATCH2025003</CHARG>
+                </E1EDL44>
+            </E1EDL37>
+        </E1EDL20>
+    </IDOC>
+</DELVRY07>

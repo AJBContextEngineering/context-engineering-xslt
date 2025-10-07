@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DELVRY07>
+    <IDOC>
+        <EDI_DC40>
+            <DOCNUM>0000123457</DOCNUM>
+            <CREDAT>20250107</CREDAT>
+            <CRETIM>143530</CRETIM>
+        </EDI_DC40>
+        <E1EDL20>
+            <VBELN>8000123457</VBELN>
+            <BTGEW></BTGEW>
+            <VOLUM></VOLUM>
+            <ANZPK>3</ANZPK>
+            <BOLNR>BOL2025002</BOLNR>
+            <E1ADRM1 SEGMENT="1">
+                <PARTNER_Q>LF</PARTNER_Q>
+                <PARTNER_ID>SUPPLIER002</PARTNER_ID>
+                <NAME1>Supplier Two</NAME1>
+            </E1ADRM1>
+            <E1EDL37>
+                <EXIDV>PAL003</EXIDV>
+                <EXIDV2>PAL003-EXT</EXIDV2>
+                <MAGRV>Z001</MAGRV>
+                <BTVOL>1.50</BTVOL>
+                <BRGEW>40.00</BRGEW>
+                <E1EDL44>
+                    <MATNR>MAT99999</MATNR>
+                    <WERKS>1000</WERKS>
+                    <VEMNG>200.00</VEMNG>
+                    <VEMEH>LTR</VEMEH>
+                    <CHARG>BATCH2025010</CHARG>
+                </E1EDL44>
+            </E1EDL37>
+        </E1EDL20>
+    </IDOC>
+</DELVRY07>
