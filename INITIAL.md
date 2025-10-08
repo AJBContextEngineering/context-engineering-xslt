@@ -2,11 +2,11 @@
 
 We want to create an MCP server using this repos template.
 
-The goal of the MCP server is to be passed in an XPath element and the XSD schema file, and to return only the subset of the XSD that's relevant to validating the elements/attributes selected by that XPath.
+The goal of the MCP server is to be passed in an XPath element and the XSD schema files, and to return only the subset of the XSD that's relevant to validating the elements/attributes selected by that XPath.
 
 ### Feature #1
 
-The XSD Schema file is located in the projects repository under the /xsd folder and is read by the MCP server and stored as a variable.
+The XSD Schema files are located in the projects repository under the /xsd folder and is read by the MCP server and stored as a variable.
 
 Reason: we only want to load the XSD schema once into the MCP server when the MCP server is instantiated, not every time it is accessed.
 
@@ -30,9 +30,8 @@ Reason: we want the LLM to know what this tool is for and when it should use it.
 
 ## EXAMPLES:
 
-In examples/ are the following example files:
+In examples/ is the following example file:
 
-- example_schema.xsd - a sample xsd schema file that the examples in file example_input_output.md are based upon.
 - Example_input_output.md - shows the input XPath that would be passed in, and the returned XSD fragments.
 
 ## DOCUMENTATION:
