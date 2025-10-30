@@ -1,5 +1,5 @@
 <?xml version='1.0' ?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://www.consafelogistics.com/astro/project">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:a="http://www.nwn.com/turf/project">
 	<xsl:template match="/">
 		<MBGMCR03>
 			<IDOC BEGIN="1">
@@ -72,7 +72,7 @@
 	<scenarios/>
 	<MapperMetaTag>
 		<MapperInfo srcSchemaPathIsRelative="yes" srcSchemaInterpretAsXML="no" destSchemaPath="..\XSD\MBGMCR.MBGMCR03.xsd" destSchemaRoot="MBGMCR03" destSchemaPathIsRelative="yes" destSchemaInterpretAsXML="no">
-			<SourceSchema srcSchemaPath="..\..\..\..\..\..\..\..\..\Github\Onnela-Astro-schemas\Doc\DispatchContentReceive_0100.xsd" srcSchemaRoot="DispatchContentReceive" AssociatedInstance="" loaderFunction="document" loaderFunctionUsesURI="no"/>
+			<SourceSchema srcSchemaPath="..\..\..\..\..\..\Github\Onnela-Astro-schemas\Doc\DispatchContentReceive_0100.xsd" srcSchemaRoot="DispatchContentReceive" AssociatedInstance="" loaderFunction="document" loaderFunctionUsesURI="no"/>
 		</MapperInfo>
 		<MapperBlockPosition>
 			<template match="/">

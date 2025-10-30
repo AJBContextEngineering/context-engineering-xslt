@@ -1,4 +1,4 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:ns0="http://www.consafelogistics.com/astro/project" >
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:ns0="http://www.nwn.com/turf/project" >
 	<xsl:output method="xml" indent="yes"/>
 	<xsl:template match="/">
 		<ns0:PurchaseOrderSync version="0100">

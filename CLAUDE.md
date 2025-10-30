@@ -100,7 +100,7 @@ to ensure templates only match elements at the specified location.
 #### Element Namespace Prefix Rule
 
 All XPath expressions I provided will be written without namespace prefixes for simplicity. However, in the generated XSL output, please add the namespace prefix 'ns0:' to all target elements. For example, if I specify /DispatchSync/ControlArea/Sender, generate it as <ns0:DispatchSync><ns0:ControlArea><ns0:Sender>."
-The namespace ns0 is defined as http://www.consafelogistics.com/astro/project
+The namespace ns0 is defined as http://www.nwn.com/turf/project
 
 
 #### XSLT Version Rule

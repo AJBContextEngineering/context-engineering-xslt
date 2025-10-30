@@ -231,11 +231,11 @@ Special Rules: Using the ancestor:: axis command, Go up the XPath Data Model fro
 
 In examples/ are the following example XSLT files:
 
-- I403_Mapping.xsl - a very simple XSL mapping file
-- I405_ZRDA_V2.xsl - a very simple XSL mapping file
-- I407_GoodsReceipt_AstroFI_ECC.xsl - a very simple XSL mapping file
-- Z_I149_TELEMA_INVOIC.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
-- Z_I152_TELEMA_ORDER.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
+- Ex1_Mapping.xsl - a very simple XSL mapping file
+- Ex2_Mapping.xsl - a very simple XSL mapping file
+- Ex3_Mapping.xsl - a very simple XSL mapping file
+- Ex4_Mapping.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
+- Ex5_Mapping.xsl - a more complex XSL mapping file. Shows how I like templates to be applied.
 
 ## DOCUMENTATION:
 
